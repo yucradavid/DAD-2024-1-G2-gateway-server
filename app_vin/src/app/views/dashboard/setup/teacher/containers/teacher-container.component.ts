@@ -9,7 +9,10 @@ import { TeacherEditComponent } from '../components/form/teacher-edit.component'
 import {ConfirmDialogService} from "../../../../../shared/confirm-dialog/confirm-dialog.service";
 import {TeacherListComponent} from "../components";
 import {TeacherService} from "../../../../../providers/services/setup/teacher.service";
-
+import {CourseService} from "../../../../../providers/services/setup/course.service";
+import {Course} from "../models/course";
+import {Category} from "../../product/models/category";
+import {CategoryService} from "../../../../../providers/services/setup/category.service";
 
 @Component({
     selector: 'app-teachers-container',
@@ -37,16 +40,19 @@ import {TeacherService} from "../../../../../providers/services/setup/teacher.se
 export class TeacherContainerComponent implements OnInit {
     public error: string = '';
     public teachers: Teacher[] = [];
+    public courses: Course[] = [];
     public teacher = new Teacher();
 
     constructor(
-    private _teacherService: TeacherService,
+        private _teacherService: TeacherService,
+        private _courseService: CourseService,
         private _confirmDialogService:ConfirmDialogService,
         private _matDialog: MatDialog,
     ) {}
 
     ngOnInit() {
         this.getTeachers();
+       // this.getCourse();
     }
 
     getTeachers(): void {
@@ -92,14 +98,13 @@ export class TeacherContainerComponent implements OnInit {
     }
 
     openModalEdit(data: Teacher) {
-        console.log(data);
         if (data) {
             const docenteForm = this._matDialog.open(TeacherEditComponent);
             docenteForm.componentInstance.title =`Editar <b>${data.nombreCompleto||data.id} </b>`;
             docenteForm.componentInstance.teacher = data;
             docenteForm.afterClosed().subscribe((result: any) => {
                 if (result) {
-                    this.editTeacher( data.id,result);
+                    this.editTeacher(this.teacher.id,result);
                 }
             });
         }

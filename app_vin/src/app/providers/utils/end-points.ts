@@ -15,6 +15,7 @@ export const END_POINTS = {
       product: 'producto',
       category: 'categoria',
       teacher: 'docente',
+      course: 'curso',
     accesRole: 'acceso-rol',
     person: 'persona',
     institution: 'institucion',

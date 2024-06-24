@@ -31,8 +31,10 @@ public class DocenteController {
 
     }
 
-    @PutMapping
-    ResponseEntity<Docente> actualizar(@RequestBody Docente docente){
+    @PutMapping("/{id}")
+    ResponseEntity<Docente> actualizar(@PathVariable(required = true) Integer id,
+                                       @RequestBody Docente docente){
+        docente.setId(id);
         return ResponseEntity.ok(docenteService.actualizar((docente)));
     }
     @DeleteMapping("/{id}")

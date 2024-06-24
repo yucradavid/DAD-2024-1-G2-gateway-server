@@ -10,7 +10,7 @@ public class CursoAsignado {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private Integer cursoid;
+    private Integer curso;
     private String horasAcademicas;
 
     @ManyToOne(fetch = FetchType.LAZY)
